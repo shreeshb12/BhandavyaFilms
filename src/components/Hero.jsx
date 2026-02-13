@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Camera, Heart, Baby, Sparkles, Mail, Phone, MapPin, Instagram, Facebook } from 'lucide-react';
-import videoSrc from '../data/video.mp4';
 export default function Hero() {
   return (
     <section style={{
@@ -32,7 +31,7 @@ export default function Hero() {
               opacity: 0.7
             }}
           >
-            <source src={videoSrc} type="video/mp4" />
+            <source src="https://res.cloudinary.com/dcxnayxgx/video/upload/v1771010554/136139-764371523_medium_rtkegl.mp4" type="video/mp4" />
           </video>
         </div>
 
