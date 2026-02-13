@@ -1,5 +1,7 @@
+import {useState} from 'react'
 import {categories} from '../data/category'
 export default function Services() {
+  const [activeCategory, setActiveCategory] = useState(null);
   return (
     <section style={{
         padding: '8rem 5%',
