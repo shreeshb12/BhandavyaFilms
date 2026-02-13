@@ -105,7 +105,15 @@ export default function Footer() {
                 overflow: 'hidden',
                 border: '1px solid rgba(212, 175, 55, 0.3)'
               }}>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3845.3101005294347!2d75.0219176!3d15.467743299999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb8cdb73b91a371%3A0x37913b6ac7cf3bc9!2sU%20-%20FLY!5e0!3m2!1sen!2sin!4v1771013400682!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3845.3101005294347!2d75.0219176!3d15.467743299999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb8cdb73b91a371%3A0x37913b6ac7cf3bc9!2sU%20-%20FLY!5e0!3m2!1sen!2sin!4v1771013400682!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </div>
           </div>
