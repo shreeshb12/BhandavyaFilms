@@ -34,7 +34,7 @@ export default function Footer() {
                 We are passionate storytellers dedicated to capturing life's most precious moments with artistry and emotion. Based in Hubballi, Karnataka, we serve clients across India with cinematic excellence.
               </p>
               <div style={{ display: 'flex', gap: '1.5rem' }}>
-                <a href="#" style={{
+                <a href="https://www.instagram.com/bhandavyafilms/" style={{
                   color: 'var(--gold)',
                   transition: 'transform 0.3s'
                 }}
@@ -43,7 +43,7 @@ export default function Footer() {
                 >
                   <FaInstagram size={24} color="#E1306C" />
                 </a>
-                <a href="#" style={{
+                <a href="https://www.instagram.com/bhandavyafilms/" style={{
                   color: 'var(--gold)',
                   transition: 'transform 0.3s'
                 }}
@@ -75,11 +75,11 @@ export default function Footer() {
               }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
                   <MapPin size={20} style={{ color: 'var(--gold)', flexShrink: 0, marginTop: '0.2rem' }} />
-                  <span>Hubballi, Karnataka, India</span>
+                  <span>Dharwad, Karnataka, India</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                   <Phone size={20} style={{ color: 'var(--gold)', flexShrink: 0 }} />
-                  <span>+91 98765 43210</span>
+                  <span>+91 8904801121</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                   <Mail size={20} style={{ color: 'var(--gold)', flexShrink: 0 }} />
@@ -105,15 +105,7 @@ export default function Footer() {
                 overflow: 'hidden',
                 border: '1px solid rgba(212, 175, 55, 0.3)'
               }}>
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245273.5803977326!2d75.00332584999999!3d15.364708449999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb8d7223e36e495%3A0xc4f2e9ddaf48166b!2sHubli%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1234567890"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3845.3101005294347!2d75.0219176!3d15.467743299999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb8cdb73b91a371%3A0x37913b6ac7cf3bc9!2sU%20-%20FLY!5e0!3m2!1sen!2sin!4v1771013400682!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </div>
           </div>
