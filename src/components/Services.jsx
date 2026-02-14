@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {categories} from '../data/category'
+import {categories} from '../data/data'
 export default function Services() {
   const [activeCategory, setActiveCategory] = useState(null);
   return (
