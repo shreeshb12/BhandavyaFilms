@@ -9,7 +9,7 @@ export default function Hero() {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden'
-      }}>
+      }} id='portfolio'>
         {/* Background Video */}
         <div style={{
           position: 'absolute',

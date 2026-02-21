@@ -6,7 +6,7 @@ export default function Footer() {
         background: '#000',
         padding: '5rem 5% 2rem',
         borderTop: '1px solid rgba(212, 175, 55, 0.2)'
-      }}>
+      }} id='contact'>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{
             display: 'grid',

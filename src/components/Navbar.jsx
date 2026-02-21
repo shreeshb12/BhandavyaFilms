@@ -36,7 +36,7 @@ export default function Navbar() {
         transition: 'all 0.5s ease',
         borderBottom: scrolled ? '1px solid rgba(212, 175, 55, 0.2)' : 'none',
         transform: scrolled ? 'translateY(0)' : 'translateY(-100%)',
-        opacity: scrolled ? 1 : 0,
+        opacity: scrolled ?1:0,
         pointerEvents: scrolled ? 'auto' : 'none'
       }}>
         {/* Logo */}
@@ -49,7 +49,7 @@ export default function Navbar() {
             src="https://res.cloudinary.com/dcxnayxgx/image/upload/v1770925772/Bhandavya_Films_c_crop_w_700_h_240_jckexm.png"
             alt="Bhandavya Films" 
             style={{
-              height: 'clamp(50px, 8vw, 80px)', // Responsive logo size
+              height: 'clamp(40px, 6vw, 50px)', // Responsive logo size
               width: 'auto',
               filter: 'brightness(0) saturate(100%) invert(72%) sepia(47%) saturate(445%) hue-rotate(7deg) brightness(93%) contrast(87%)',
               transition: 'transform 0.3s ease, filter 0.3s ease',
@@ -81,7 +81,7 @@ export default function Navbar() {
         }}
         className="desktop-nav"
         >
-          {['Portfolio', 'Services', 'About', 'Contact'].map((item) => (
+          {['Portfolio', 'Services', 'Testimonials', 'Contact'].map((item) => (
             <a 
               key={item} 
               href={`#${item.toLowerCase()}`} 
@@ -110,7 +110,7 @@ export default function Navbar() {
             color: '#d4af37',
             cursor: 'pointer',
             padding: '0.5rem',
-            zIndex: 102
+            zIndex: 152
           }}
           className="mobile-menu-btn"
           aria-label="Toggle menu"
@@ -141,7 +141,26 @@ export default function Navbar() {
       }}
       className="mobile-menu"
       >
-        {['Portfolio', 'Services', 'About', 'Contact'].map((item, index) => (
+          <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          style={{
+            position:'absolute',
+            top:'10px',
+            right:'10px',
+            display: 'none',
+            background: 'none',
+            border: 'none',
+            color: '#d4af37',
+            cursor: 'pointer',
+            padding: '0.5rem',
+            zIndex: 152
+          }}
+          className="mobile-menu-btn"
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+        {['Portfolio', 'Services', 'Testimonials', 'Contact'].map((item, index) => (
           <a 
             key={item} 
             href={`#${item.toLowerCase()}`}

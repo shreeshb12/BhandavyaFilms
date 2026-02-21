@@ -4,9 +4,9 @@ export default function Services() {
   const [activeCategory, setActiveCategory] = useState(null);
   return (
     <section style={{
-        padding: '8rem 5%',
+        padding: '3rem 5%',
         background: '#0a0a0a'
-      }}>
+      }} id='services'>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <h2 style={{
             fontSize: 'clamp(2.5rem, 5vw, 4rem)',

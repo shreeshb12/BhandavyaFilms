@@ -1,236 +1,415 @@
-import { useState } from 'react';
-import {testimonials} from '../data/data'
-const duplicatedTestimonials=[...testimonials,...testimonials];
+import { useState, useRef, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { testimonials } from '../data/data';
+
 export default function Testimonials() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const intervalRef = useRef(null);
+
+  useEffect(() => {
+  clearInterval(intervalRef.current);
+
+  if (!isPaused) {
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex(prev =>
+        prev < testimonials.length - 1 ? prev + 1 : 0
+      );
+    }, 4000); // change timing here (4s)
+  }
+
+  return () => clearInterval(intervalRef.current);
+}, [isPaused]);
+
+  // Manual navigation functions
+  const handlePrevious = () => {
+    setCurrentIndex(prev => (prev > 0 ? prev - 1 : testimonials.length - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex(prev => (prev < testimonials.length - 1 ? prev + 1 : 0));
+  };
+
+  // Touch swipe handlers for mobile
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 75) {
+      // Swipe left
+      handleNext();
+    }
+    if (touchStart - touchEnd < -75) {
+      // Swipe right
+      handlePrevious();
+    }
+  };
+
   return (
-            <section style={{
+    <section style={{
       position: 'relative',
-      padding: '8rem 0',
+      padding: '4rem 0',
       overflow: 'hidden',
       background: '#0a0a0a'
-    }}>
+    }} id='testimonials'>
       {/* Content */}
       <div style={{ 
         position: 'relative',
         zIndex: 2
       }}>
         {/* Header */}
-        <div style={{ padding: '0 5%', marginBottom: '5rem' }}>
+        <div style={{ padding: '0 5%', marginBottom: '2rem' }}>
           <h2 style={{
-            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+            fontSize: 'clamp(2rem, 5vw, 2.5rem)',
             fontWeight: 300,
             textAlign: 'center',
-            marginBottom: '1rem',
-            letterSpacing: '6px',
+            marginBottom: '0.5rem',
+            letterSpacing: 'clamp(3px, 1vw, 6px)',
             color: '#d4af37'
           }}>
             WHAT CLIENTS SAY
           </h2>
           <div style={{
-            width: '80px',
+            width: 'clamp(60px, 10vw, 80px)',
             height: '2px',
             background: '#d4af37',
-            margin: '2rem auto'
+            margin: '1.5rem auto'
           }} />
         </div>
 
-        {/* Horizontal Marquee Container */}
-        <div style={{
-          position: 'relative',
-          width: '100%',
-          overflow: 'hidden',
-          maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
-        }}
-        onMouseOver={() => setIsPaused(!isPaused)}
-        onMouseLeave={() => setIsPaused(false)}
+        {/* Slider Container */}
+        <div 
+          style={{
+            position: 'relative',
+            maxWidth: '900px',
+            margin: '0 auto',
+            padding: '0 5%'
+          }}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={(e) => {
+          setIsPaused(true);
+          handleTouchStart(e);
+          }}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={(e) => {
+            handleTouchEnd(e);
+            setIsPaused(false);
+          }}
         >
-          {/* Scrolling Track */}
-          <div 
-            className="marquee-track"
+          {/* Navigation Arrows */}
+          <button
+            onClick={handlePrevious}
+            className="nav-arrow-testimonial nav-left"
             style={{
+              position: 'absolute',
+              left: '-60px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 10,
+              background: 'rgba(212, 175, 55, 0.9)',
+              border: 'none',
+              borderRadius: '50%',
+              width: '50px',
+              height: '50px',
               display: 'flex',
-              gap: '2.5rem',
-              width: 'max-content',
-              animation: 'scroll-left 50s linear infinite',
-              animationPlayState: isPaused ? 'paused' : 'running'
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 15px rgba(212, 175, 55, 0.4)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(212, 175, 55, 1)';
+              e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(212, 175, 55, 0.9)';
+              e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
             }}
           >
-            {duplicatedTestimonials.map((testimonial, index) => (
-              <div 
-                key={index} 
-                className="testimonial-card"
-                style={{
-                  position: 'relative',
-                  minWidth: '400px',
-                  maxWidth: '400px',
-                  minHeight: '500px',
-                  borderRadius: '8px',
-                  overflow: 'hidden',
-                  border: '1px solid rgba(212, 175, 55, 0.3)',
-                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.5)',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                {/* Background Image */}
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  backgroundImage: `url(${testimonial.image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  filter: 'brightness(0.4)',
-                  transition: 'transform 0.5s ease, filter 0.3s ease'
-                }} className="card-bg" />
+            <ChevronLeft size={26} color="#0a0a0a" strokeWidth={2.5} />
+          </button>
 
-                {/* Dark Gradient Overlay */}
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(to top, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.7) 50%, rgba(10, 10, 10, 0.5) 100%)',
-                  zIndex: 1
-                }} />
+          <button
+            onClick={handleNext}
+            className="nav-arrow-testimonial nav-right"
+            style={{
+              position: 'absolute',
+              right: '-60px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 10,
+              background: 'rgba(212, 175, 55, 0.9)',
+              border: 'none',
+              borderRadius: '50%',
+              width: '50px',
+              height: '50px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 15px rgba(212, 175, 55, 0.4)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(212, 175, 55, 1)';
+              e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(212, 175, 55, 0.9)';
+              e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+            }}
+          >
+            <ChevronRight size={26} color="#0a0a0a" strokeWidth={2.5} />
+          </button>
 
-                {/* Content */}
+          {/* Testimonial Card */}
+          <div style={{
+            padding: '0 clamp(50px, 8vw, 70px)'
+          }}>
+            <div 
+              className="testimonial-card"
+              style={{
+                position: 'relative',
+                height: 'clamp(420px, 50vw, 450px)',
+                borderRadius: 'clamp(8px, 1.5vw, 12px)',
+                overflow: 'hidden',
+                border: '1px solid rgba(212, 175, 55, 0.3)',
+                boxShadow: '0 10px 40px rgba(0, 0, 0, 0.6)',
+                transition: 'all 0.5s ease'
+              }}
+            >
+              {/* Background Image */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                backgroundImage: `url(${testimonials[currentIndex].image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                filter: 'brightness(0.4)',
+                transition: 'all 0.5s ease'
+              }} className="card-bg" />
+
+              {/* Dark Gradient Overlay */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                background: 'linear-gradient(to top, rgba(10, 10, 10, 0.98) 0%, rgba(10, 10, 10, 0.85) 20%, rgba(10, 10, 10, 0.3) 100%)',
+                zIndex: 1
+              }} />
+
+              {/* Content - Positioned at bottom */}
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                zIndex: 2,
+                padding: 'clamp(2rem, 4vw, 3rem)',
+                paddingTop: 'clamp(2.5rem, 5vw, 4rem)'
+              }}>
+                {/* Quote Icon */}
                 <div style={{
-                  position: 'relative',
-                  zIndex: 2,
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                  padding: '2.5rem'
+                  fontSize: 'clamp(2.5rem, 6vw, 3.5rem)',
+                  color: '#d4af37',
+                  opacity: 0.3,
+                  lineHeight: 1,
+                  marginBottom: 'clamp(0.8rem, 2vw, 1rem)',
+                  fontFamily: 'Georgia, serif'
                 }}>
-                  {/* Quote Icon */}
-                  <div style={{
-                    fontSize: '3.5rem',
-                    color: '#d4af37',
-                    opacity: 0.3,
-                    lineHeight: 1,
-                    marginBottom: '1rem',
-                    fontFamily: 'Georgia, serif'
-                  }}>
-                    "
-                  </div>
+                  "
+                </div>
 
-                  {/* Review Text */}
-                  <p style={{
-                    fontSize: '1.05rem',
-                    lineHeight: '1.75',
-                    fontFamily: "'Montserrat', sans-serif",
-                    color: '#f5f5f5',
-                    marginBottom: '2rem',
-                    fontStyle: 'italic',
+                {/* Review Text */}
+                <p style={{
+                  fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+                  lineHeight: '1.7',
+                  fontFamily: "'Montserrat', sans-serif",
+                  color: '#f5f5f5',
+                  marginBottom: 'clamp(1.5rem, 3vw, 2rem)',
+                  fontStyle: 'italic',
+                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
+                }}>
+                  {testimonials[currentIndex].text}
+                </p>
+
+                {/* Star Rating */}
+                <div style={{
+                  display: 'flex',
+                  gap: 'clamp(0.3rem, 0.8vw, 0.4rem)',
+                  marginBottom: 'clamp(1.2rem, 2.5vw, 1.5rem)'
+                }}>
+                  {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                    <span key={i} style={{ 
+                      color: '#d4af37', 
+                      fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+                      textShadow: '0 0 10px rgba(212, 175, 55, 0.6)'
+                    }}>★</span>
+                  ))}
+                </div>
+
+                {/* Client Info */}
+                <div>
+                  <div style={{
+                    fontSize: 'clamp(1.1rem, 2vw, 1.25rem)',
+                    fontWeight: 600,
+                    color: '#d4af37',
+                    marginBottom: 'clamp(0.3rem, 0.8vw, 0.4rem)',
+                    letterSpacing: 'clamp(1px, 0.3vw, 1.5px)',
                     textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
                   }}>
-                    {testimonial.text}
-                  </p>
-
-                  {/* Star Rating */}
-                  <div style={{
-                    display: 'flex',
-                    gap: '0.4rem',
-                    marginBottom: '1.5rem'
-                  }}>
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} style={{ 
-                        color: '#d4af37', 
-                        fontSize: '1.2rem',
-                        textShadow: '0 0 8px rgba(212, 175, 55, 0.6)'
-                      }}>★</span>
-                    ))}
+                    {testimonials[currentIndex].name}
                   </div>
-
-                  {/* Client Info */}
-                  <div>
-                    <div style={{
-                      fontSize: '1.15rem',
-                      fontWeight: 600,
-                      color: '#d4af37',
-                      marginBottom: '0.4rem',
-                      letterSpacing: '1.5px',
-                      textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)'
-                    }}>
-                      {testimonial.name}
-                    </div>
-                    <div style={{
-                      fontSize: '0.9rem',
-                      fontFamily: "'Montserrat', sans-serif",
-                      color: 'rgba(245, 245, 245, 0.8)',
-                      letterSpacing: '1px',
-                      textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)'
-                    }}>
-                      {testimonial.event}
-                    </div>
+                  <div style={{
+                    fontSize: 'clamp(0.85rem, 1.4vw, 0.95rem)',
+                    fontFamily: "'Montserrat', sans-serif",
+                    color: 'rgba(245, 245, 245, 0.8)',
+                    letterSpacing: 'clamp(0.5px, 0.2vw, 1px)',
+                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)'
+                  }}>
+                    {testimonials[currentIndex].event}
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
 
-        {/* Pause on Hover Indicator */}
+        {/* Dots Indicator */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 'clamp(0.6rem, 1.2vw, 0.9rem)',
+          marginTop: 'clamp(2rem, 4vw, 3rem)'
+        }}>
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              style={{
+                width: currentIndex === index ? 'clamp(30px, 5vw, 38px)' : 'clamp(8px, 1.5vw, 10px)',
+                height: 'clamp(8px, 1.5vw, 10px)',
+                borderRadius: 'clamp(4px, 0.8vw, 5px)',
+                border: 'none',
+                background: currentIndex === index ? '#d4af37' : 'rgba(212, 175, 55, 0.3)',
+                cursor: 'pointer',
+                transition: 'all 0.4s ease',
+                padding: 0,
+                boxShadow: currentIndex === index ? '0 0 15px rgba(212, 175, 55, 0.5)' : 'none'
+              }}
+              onMouseEnter={(e) => {
+                if (currentIndex !== index) {
+                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.6)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (currentIndex !== index) {
+                  e.currentTarget.style.background = 'rgba(212, 175, 55, 0.3)';
+                }
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Counter */}
         <p style={{
           textAlign: 'center',
-          marginTop: '3rem',
-          fontSize: '0.9rem',
-          color: isPaused ? 'rgba(212, 175, 55, 0.8)' : 'rgba(245, 245, 245, 0.4)',
+          marginTop: 'clamp(1rem, 2vw, 1.5rem)',
+          fontSize: 'clamp(0.85rem, 1.5vw, 0.95rem)',
+          color: 'rgba(212, 175, 55, 0.7)',
           fontFamily: "'Montserrat', sans-serif",
-          letterSpacing: '1px',
-          transition: 'color 0.3s ease'
+          letterSpacing: 'clamp(0.8px, 0.2vw, 1.5px)'
         }}>
-          {isPaused ? '⏸ Paused' : 'Hover to pause'}
+          {currentIndex + 1} / {testimonials.length}
         </p>
       </div>
 
-      {/* CSS Animations */}
+      {/* CSS */}
       <style>{`
-        @keyframes scroll-left {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
-        }
-
-        .marquee-track:hover {
-          animation-play-state: paused;
-        }
-
-        .testimonial-card:hover {
-          transform: translateY(-8px) scale(1.03);
-          border-color: rgba(212, 175, 55, 0.6);
-          box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3);
-        }
-
         .testimonial-card:hover .card-bg {
-          transform: scale(1.1);
+          transform: scale(1.05);
           filter: brightness(0.5);
         }
 
-        /* Mobile optimizations */
+        /* Desktop - arrows outside */
+        @media (min-width: 1000px) {
+          .nav-left {
+            left: -60px !important;
+          }
+          .nav-right {
+            right: -60px !important;
+          }
+        }
+
+        /* Medium screens - arrows closer */
+        @media (max-width: 999px) and (min-width: 769px) {
+          .nav-left {
+            left: 10px !important;
+          }
+          .nav-right {
+            right: 10px !important;
+          }
+        }
+
+        /* Mobile - smaller buttons */
         @media (max-width: 768px) {
-          .testimonial-card {
-            min-width: 320px !important;
-            max-width: 320px !important;
-            min-height: 480px !important;
+          .nav-arrow-testimonial {
+            width: 40px !important;
+            height: 40px !important;
           }
 
-          @keyframes scroll-left {
-            from {
-              transform: translateX(0);
-            }
-            to {
-              transform: translateX(-50%);
-            }
+          .nav-arrow-testimonial svg {
+            width: 22px !important;
+            height: 22px !important;
+          }
+
+          .nav-left {
+            left: 10px !important;
+          }
+
+          .nav-right {
+            right: 10px !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .nav-arrow-testimonial {
+            width: 36px !important;
+            height: 36px !important;
+          }
+
+          .nav-arrow-testimonial svg {
+            width: 20px !important;
+            height: 20px !important;
+          }
+
+          .nav-left {
+            left: 5px !important;
+          }
+
+          .nav-right {
+            right: 5px !important;
+          }
+        }
+
+        /* Touch device optimization */
+        @media (hover: none) and (pointer: coarse) {
+          .nav-arrow-testimonial:active {
+            transform: translateY(-50%) scale(0.92) !important;
           }
         }
       `}</style>
