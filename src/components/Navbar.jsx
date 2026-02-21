@@ -7,7 +7,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 30);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -36,7 +36,7 @@ export default function Navbar() {
         transition: 'all 0.5s ease',
         borderBottom: scrolled ? '1px solid rgba(212, 175, 55, 0.2)' : 'none',
         transform: scrolled ? 'translateY(0)' : 'translateY(-100%)',
-        opacity: scrolled ?1:0,
+        opacity: 1,
         pointerEvents: scrolled ? 'auto' : 'none'
       }}>
         {/* Logo */}

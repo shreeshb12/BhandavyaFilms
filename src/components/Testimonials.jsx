@@ -84,7 +84,6 @@ export default function Testimonials() {
             padding: '0 5%'
           }}
           onMouseEnter={() => setIsPaused(true)}
-          onMouseOver={()=>setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
           {/* Navigation Arrows */}
