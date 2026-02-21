@@ -32,15 +32,6 @@ export default function Testimonials() {
     setCurrentIndex(prev => (prev < testimonials.length - 1 ? prev + 1 : 0));
   };
 
-  // Touch swipe handlers for mobile
-  const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
   const handleTouchEnd = () => {
     if (touchStart - touchEnd > 75) {
       // Swipe left
@@ -93,16 +84,8 @@ export default function Testimonials() {
             padding: '0 5%'
           }}
           onMouseEnter={() => setIsPaused(true)}
+          onMouseOver={()=>setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
-          onTouchStart={(e) => {
-          setIsPaused(true);
-          handleTouchStart(e);
-          }}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={(e) => {
-            handleTouchEnd(e);
-            setIsPaused(false);
-          }}
         >
           {/* Navigation Arrows */}
           <button
@@ -173,13 +156,13 @@ export default function Testimonials() {
 
           {/* Testimonial Card */}
           <div style={{
-            padding: '0 clamp(50px, 8vw, 70px)'
+            padding: '0 clamp(5px, 6vw, 70px)'
           }}>
             <div 
               className="testimonial-card"
               style={{
                 position: 'relative',
-                height: 'clamp(420px, 50vw, 450px)',
+                height: 'clamp(600px, 50vw, 450px)',
                 borderRadius: 'clamp(8px, 1.5vw, 12px)',
                 overflow: 'hidden',
                 border: '1px solid rgba(212, 175, 55, 0.3)',
