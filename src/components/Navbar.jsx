@@ -160,10 +160,10 @@ export default function Navbar() {
         >
           {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
-        {['Portfolio', 'Services', 'Testimonials', 'Contact'].map((item, index) => (
+        {['Portfolio', 'Services', 'Testimonials', 'Contact','Developer'].map((item, index) => (
           <a 
             key={item} 
-            href={`#${item.toLowerCase()}`}
+            href={item=='Developer'?`https://github.com/shreeshb12`:`#${item.toLowerCase()}`}
             onClick={handleLinkClick}
             style={{
               color: '#f5f5f5',

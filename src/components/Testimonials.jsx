@@ -336,6 +336,9 @@ export default function Testimonials() {
           .nav-right {
             right: -60px !important;
           }
+          .testimonial-card{
+          height:450px !important;
+          }
         }
 
         /* Medium screens - arrows closer */

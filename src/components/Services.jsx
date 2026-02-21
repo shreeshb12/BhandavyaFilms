@@ -9,7 +9,7 @@ export default function Services() {
       }} id='services'>
         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <h2 style={{
-            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+            fontSize: 'clamp(2.5rem, 5vw, 2.5rem)',
             fontWeight: 300,
             textAlign: 'center',
             marginBottom: '1rem',

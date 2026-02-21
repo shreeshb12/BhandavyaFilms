@@ -127,7 +127,7 @@ export default function Footer() {
             color: 'rgba(245, 245, 245, 0.5)',
             letterSpacing: '1px'
           }}>
-            © 2026 Bhandavya Films. All rights reserved. | Crafted with passion for timeless memories.
+            © {new Date().getFullYear()} Bhandavya Films. All rights reserved. Designed & Developed by <a href='https://github.com/shreeshb12' target='_blank'>Shreesh Badiger</a>.
           </div>
         </div>
       </footer>
