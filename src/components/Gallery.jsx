@@ -292,6 +292,7 @@ export default function Gallery({ category, photos, onClose }) {
 
           {/* Image */}
           <img
+            loading='lazy'
             src={photos[currentImageIndex]}
             alt={`${category.title} ${currentImageIndex + 1}`}
             onClick={(e) => e.stopPropagation()}
