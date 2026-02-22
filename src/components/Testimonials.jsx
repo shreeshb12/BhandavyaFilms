@@ -15,7 +15,7 @@ export default function Testimonials() {
       setCurrentIndex(prev =>
         prev < testimonials.length - 1 ? prev + 1 : 0
       );
-    }, 4000); // change timing here (4s)
+    }, 4000);
   }
 
   return () => clearInterval(intervalRef.current);
