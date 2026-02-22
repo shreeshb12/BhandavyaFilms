@@ -34,25 +34,6 @@ export default function Services() {
             marginBottom: '5rem',
             textAlign: 'center'
           }}>
-            <div style={{
-              display: 'inline-block',
-              padding: '0.6rem 1.5rem',
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '30px',
-              marginBottom: '2rem'
-            }}>
-              <span style={{
-                fontSize: '0.85rem',
-                fontFamily: "'Montserrat', sans-serif",
-                color: 'rgba(255, 255, 255, 0.6)',
-                letterSpacing: '2px',
-                textTransform: 'uppercase',
-                fontWeight: 500
-              }}>
-                What We Offer
-              </span>
-            </div>
             
             <h2 style={{
               fontSize: 'clamp(3rem, 6vw, 5rem)',
