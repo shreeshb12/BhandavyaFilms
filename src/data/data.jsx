@@ -5,7 +5,7 @@ export const categories = [
       title: 'Pre-Wedding',
       icon: Heart,
       description: 'Capture your love story before the big day',
-      image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=600&fit=crop'
+      image: 'https://res.cloudinary.com/dcxnayxgx/image/upload/v1771717142/bhandavyafilms-18022026-0020_ezqpv6.jpg'
     },
     {
       id: 'wedding',
