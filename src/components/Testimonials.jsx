@@ -30,17 +30,6 @@ export default function Testimonials() {
     setCurrentIndex(prev => (prev < testimonials.length - 1 ? prev + 1 : 0));
   };
 
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 75) {
-      // Swipe left
-      handleNext();
-    }
-    if (touchStart - touchEnd < -75) {
-      // Swipe right
-      handlePrevious();
-    }
-  };
-
   return (
     <section style={{
       position: 'relative',
@@ -82,6 +71,7 @@ export default function Testimonials() {
             padding: '0 5%'
           }}
           onMouseEnter={() => setIsPaused(true)}
+          onMouseOver={()=>setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
           {/* Navigation Arrows */}

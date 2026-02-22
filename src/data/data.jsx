@@ -30,7 +30,6 @@ export async function fetchAllImages() {
         });
       
       images[bucketName] = imageUrls; // Fixed: correct property access
-      console.log(`${bucketName}:`, imageUrls);
     }
   } catch (error) {
     console.error('Error fetching images:', error);
